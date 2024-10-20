@@ -1,15 +1,23 @@
+"use client";
 import React from "react";
 import { Title } from "./title";
 import { FilterCheckbox } from "./filter-checkbox";
 import { Input } from "../ui/input";
 import { RangeSlider } from "../ui/range-slider";
 import { CheckboxFiltersGroup } from "./checkbox-filters-group";
+import { useFilterIngredients } from "@/hooks/useFilterIngrediens";
 
 interface Props {
   className?: string;
 }
 
 export const Filters: React.FC<Props> = ({ className }) => {
+  const { ingredients, loading, onAddId, selectedIds } = useFilterIngredients();
+  const items = ingredients.map((item) => ({
+    value: String(item.id),
+    text: item.name,
+  }));
+
   return (
     <div className={className}>
       <Title
@@ -35,66 +43,11 @@ export const Filters: React.FC<Props> = ({ className }) => {
         title="Ингридиенты"
         className="mt-5"
         limit={6}
-        defaultItems={[
-          {
-            text: "Сырный соус",
-            value: "1",
-          },
-          {
-            text: "Моцарелла",
-            value: "2",
-          },
-          {
-            text: "Чеснок",
-            value: "3",
-          },
-          {
-            text: "Соленый огурчик",
-            value: "4",
-          },
-          {
-            text: "Питтца",
-            value: "5",
-          },
-          {
-            text: "хлебушек",
-            value: "6",
-          },
-          {
-            text: "Ваниль",
-            value: "7",
-          },
-        ]}
-        items={[
-          {
-            text: "Сырный соус",
-            value: "1",
-          },
-          {
-            text: "Моцарелла",
-            value: "2",
-          },
-          {
-            text: "Чеснок",
-            value: "3",
-          },
-          {
-            text: "Соленый огурчик",
-            value: "4",
-          },
-          {
-            text: "Питтца",
-            value: "5",
-          },
-          {
-            text: "хлебушек",
-            value: "6",
-          },
-          {
-            text: "Ваниль",
-            value: "7",
-          },
-        ]}
+        defaultItems={items.slice(0, 6)}
+        items={items}
+        loading={loading}
+        onClickCheckbox={onAddId}
+        selectedIds = {selectedIds}
       />
     </div>
   );
