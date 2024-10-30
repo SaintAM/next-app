@@ -11,8 +11,11 @@ interface ReturnProps {
 }
 
 export const useFilterIngredients = (): ReturnProps => {
+  // список самих ингридиентов с бд
   const [ingredients, setIngredients] = React.useState<Ingredient[]>([]);
+  // если загрузка - то отображаем скелетоны
   const [loading, setLoading] = React.useState(true);
+  // храним выбранные ингридиенты (их id)
   const [selectedIds, { toggle }] = useSet(new Set<string>([]));
 
   React.useEffect(() => {

@@ -133,7 +133,7 @@ async function up() {
       generateProductItem({ productId: 17 }),
     ],
   });
-
+  // Создаем КОРЗИНУ
   await prisma.cart.createMany({
     data: [
       {
@@ -148,7 +148,7 @@ async function up() {
       },
     ],
   });
-
+  // Создаем продукт в корзине(1 типа пицца, в количестве 2 штук, и с 4 ингредиентами)
   await prisma.cartItem.create({
     data: {
       productItemId: 1,

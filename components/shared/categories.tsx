@@ -10,10 +10,11 @@ interface Props {
 const cats = [
   { id: 1, name: "Завтраки" },
   { id: 2, name: "Пиццы" },
-  { id: 3, name: "Vegan" },
+  { id: 3, name: "Веган" },
   { id: 4, name: "Myaso" },
   { id: 5, name: "Napitki" },
-  { id: 6, name: "Others" },
+  { id: 6, name: "Десерты" },
+  { id: 7, name: "Напитки" },
 ];
 
 export const Categories: React.FC<Props> = ({ className }) => {
@@ -25,13 +26,13 @@ export const Categories: React.FC<Props> = ({ className }) => {
     >
       {cats.map(({ name, id }, i) => (
         <a
-          key={id}
-          href={`/#${name}`}
           className={cn(
             "flex items-center font-bold h-11 rounded-2xl px-5",
-            id === categoryActiveId &&
+            categoryActiveId === id &&
               "bg-white shadow-md shadow-gray-200 text-primary"
           )}
+          href={`/#${name}`}
+          key={id}
         >
           <button>{name}</button>
         </a>

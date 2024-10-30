@@ -22,10 +22,13 @@ export const SearchInput: React.FC<Props> = ({ className }) => {
   });
 
   useDebounce(
-    () => {
-      Api.products.search(searchQuery).then((items) => {
-        setProducts(items);
-      });
+    async () => {
+      Api.products
+        .search(searchQuery)
+        .then((items) => {
+          setProducts(items);
+        })
+        .catch((err) => console.log(err));
     },
     300,
     [searchQuery]
@@ -34,7 +37,7 @@ export const SearchInput: React.FC<Props> = ({ className }) => {
   const onClickItem = () => {
     setFocused(false);
     setSearchQuery("");
-		setProducts([])
+    setProducts([]);
   };
 
   return (
@@ -59,6 +62,7 @@ export const SearchInput: React.FC<Props> = ({ className }) => {
           onFocus={() => setFocused(true)}
           onChange={(e) => setSearchQuery(e.target.value)}
         />
+        {/* Нижний попап, с списком продуктов при поиске */}
         {products.length > 1 && (
           <div
             className={cn(
